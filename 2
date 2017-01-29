@@ -1,0 +1,20 @@
+B = FOREACH A CONCAT(firstname,lastname);
+
+C = FOREACH B TOKENIZE(fullname);
+
+A = FOREACH B GENERATE group,SUM(price);
+
+A = FOREACH B GENERATE group,MAX(price);
+
+A = FOREACH B GENERATE group,MIN(price);
+
+B = ORDER C BY empid;
+A = LIMIT B 5;
+  
+STORE A into '/results'
+
+A = DISTINCT B;
+
+A = FOREACH B GENERATE FLATTEN(TOKENIZE(line,' '));
+
+A = filter B by IsEmpty(sales);
